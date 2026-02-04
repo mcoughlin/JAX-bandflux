@@ -9,7 +9,6 @@ tags:
 authors:
   - name: Samuel Alan Kossoff Leeney
     orcid: 0000-0003-4366-1119
-    equal-contrib: true
     affiliation: "1, 2"
 affiliations:
  - name: Astrophysics Group, Cavendish Laboratory, J. J. Thomson Avenue, Cambridge CB3 0HE, UK
