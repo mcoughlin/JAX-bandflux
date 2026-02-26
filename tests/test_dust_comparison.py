@@ -30,9 +30,6 @@ from jax_supernovae import dust
 from jax_supernovae.bandpasses import Bandpass, load_bandpass
 from jax_supernovae.salt3 import optimized_salt3_bandflux, precompute_bandflux_bridge
 
-# Enable float64 precision
-jax.config.update("jax_enable_x64", True)
-
 # Define test parameters
 DUST_LAWS = [
     (0, "CCM89", sncosmo.CCM89Dust),

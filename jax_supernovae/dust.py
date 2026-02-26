@@ -18,9 +18,6 @@ import jax
 import jax.numpy as jnp
 from functools import partial
 
-# Enable float64 precision
-jax.config.update("jax_enable_x64", True)
-
 
 @jax.jit
 def apply_extinction(flux, extinction):

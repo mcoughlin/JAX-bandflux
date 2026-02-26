@@ -8,7 +8,7 @@ This codebase implements a JAX-based version of the SALT3-NIR supernova model, s
 2. ALL likelihood functions and priors MUST be fully JIT compiled
 3. numpy MUST NOT be used except in data loading functions that are called once
 4. ALL mathematical operations MUST use jax.numpy (imported as jnp)
-5. Maintain float64 precision throughout calculations (jax.config.update("jax_enable_x64", True))
+5. Library code must NOT set jax_enable_x64 globally. Users are responsible for enabling float64 before importing jax_supernovae. Tests enable x64 via conftest.py.
 6. Ensure all functions that perform mathematical operations are JIT-compatible
 
 ## Code Structure

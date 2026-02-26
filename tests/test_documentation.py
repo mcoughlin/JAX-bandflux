@@ -19,9 +19,6 @@ from scipy.optimize import minimize
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_root)
 
-# Enable float64 precision
-jax.config.update("jax_enable_x64", True)
-
 
 def test_quickstart():
     """Test code blocks from quickstart.rst using v3.0 functional API.
