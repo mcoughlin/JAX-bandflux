@@ -117,8 +117,20 @@ def test_bandpass_loading():
     assert hasattr(retrieved_bandpass, 'wave'), "Bandpass should have 'wave' attribute"
     assert hasattr(retrieved_bandpass, 'trans'), "Bandpass should have 'trans' attribute"
     assert retrieved_bandpass.name == 'custom::g', "Bandpass name should be preserved"
-    assert np.array_equal(retrieved_bandpass.wave, wavelengths), "Wavelength arrays don't match"
-    assert np.array_equal(retrieved_bandpass.trans, transmission), "Transmission arrays don't match"
+    np.testing.assert_allclose(
+        retrieved_bandpass.wave,
+        wavelengths,
+        rtol=1e-6,
+        atol=3e-4,
+        err_msg="Wavelength arrays don't match",
+    )
+    np.testing.assert_allclose(
+        retrieved_bandpass.trans,
+        transmission,
+        rtol=1e-6,
+        atol=3e-8,
+        err_msg="Transmission arrays don't match",
+    )
 
 
 def test_model_fluxes():

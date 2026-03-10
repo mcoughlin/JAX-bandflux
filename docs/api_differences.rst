@@ -214,7 +214,7 @@ Numerical Consistency
 
 Despite the API differences, JAX-bandflux maintains numerical consistency with SNCosmo:
 
-- **Model components** (M0, M1, color law): Match to machine precision
+- **Model components** (M0, M1, color law): Match to machine precision with x64 enabled; float32 remains close but may exceed machine-precision-level tolerances
 - **Integration grids**: Identical 5.0 Å spacing
 - **Bandflux values**: Match within 0.001% (limited by interpolation differences)
 

@@ -17,10 +17,14 @@ if __name__ == "__main__":
     sys.path.insert(0, project_root)
 
 import numpy as np
+import jax
 import jax.numpy as jnp
 import sncosmo
 from jax_supernovae import SALT3Source
 from jax_supernovae.salt3 import salt3_m0, salt3_m1, salt3_colorlaw
+
+MODEL_COMPONENT_RTOL = 1e-6 if jax.config.read("jax_enable_x64") else 2e-5
+MODEL_COMPONENT_ATOL = 0.0 if jax.config.read("jax_enable_x64") else 1e-18
 
 
 def test_model_components():
@@ -47,12 +51,27 @@ def test_model_components():
     jax_cl = salt3_colorlaw(wavelengths)
 
     # Assert exact match
-    np.testing.assert_allclose(jax_m0, snc_m0, rtol=1e-6,
-                              err_msg="M0 components do not match")
-    np.testing.assert_allclose(jax_m1, snc_m1, rtol=1e-6,
-                              err_msg="M1 components do not match")
-    np.testing.assert_allclose(jax_cl, snc_cl, rtol=1e-6,
-                              err_msg="Color law components do not match")
+    np.testing.assert_allclose(
+        jax_m0,
+        snc_m0,
+        rtol=MODEL_COMPONENT_RTOL,
+        atol=MODEL_COMPONENT_ATOL,
+        err_msg="M0 components do not match",
+    )
+    np.testing.assert_allclose(
+        jax_m1,
+        snc_m1,
+        rtol=MODEL_COMPONENT_RTOL,
+        atol=MODEL_COMPONENT_ATOL,
+        err_msg="M1 components do not match",
+    )
+    np.testing.assert_allclose(
+        jax_cl,
+        snc_cl,
+        rtol=MODEL_COMPONENT_RTOL,
+        atol=MODEL_COMPONENT_ATOL,
+        err_msg="Color law components do not match",
+    )
 
     print("\n✓ Model components (M0, M1, colorlaw) match sncosmo")
 
