@@ -23,6 +23,9 @@ from jax_supernovae import TimeSeriesSource
 from jax_supernovae.bandpasses import get_bandpass
 from jax_supernovae.salt3 import precompute_bandflux_bridge
 
+OPTIMISED_MODE_RTOL = 1e-10 if jax.config.read("jax_enable_x64") else 1e-6
+OPTIMISED_MODE_ATOL = 0.0 if jax.config.read("jax_enable_x64") else 5e-4
+
 
 # ============================================================================
 # Test Fixtures - Create Simple Test Models
@@ -429,12 +432,17 @@ def test_optimised_mode():
     print(f"\n{'Observation':>12} {'Simple Mode':>15} {'Optimised Mode':>15} {'Match':>8}")
     print("-" * 58)
     for i, (sf, of) in enumerate(zip(simple_fluxes, optimised_fluxes)):
-        match = "✓" if np.allclose(sf, of, rtol=1e-10) else "✗"
+        match = "✓" if np.allclose(sf, of, rtol=OPTIMISED_MODE_RTOL, atol=OPTIMISED_MODE_ATOL) else "✗"
         print(f"{i:12d} {sf:15.6e} {of:15.6e} {match:>8}")
 
-    # Should be bit-identical (or very close)
-    np.testing.assert_allclose(simple_fluxes, optimised_fluxes, rtol=1e-10,
-                              err_msg="Optimised mode doesn't match simple mode")
+    # x64 should remain effectively exact; float32 allows small fused-kernel drift.
+    np.testing.assert_allclose(
+        simple_fluxes,
+        optimised_fluxes,
+        rtol=OPTIMISED_MODE_RTOL,
+        atol=OPTIMISED_MODE_ATOL,
+        err_msg="Optimised mode doesn't match simple mode",
+    )
 
     print("✓ Optimised mode matches simple mode")
 
