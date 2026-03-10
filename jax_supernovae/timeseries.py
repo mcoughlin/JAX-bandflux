@@ -23,9 +23,6 @@ from jax_supernovae.constants import HC_ERG_AA, MODEL_BANDFLUX_SPACING
 from jax_supernovae.utils import bandflux_integration
 from jax_supernovae.salt3 import kernval, find_index, compute_interpolation_weights
 
-# Enable float64 precision
-jax.config.update("jax_enable_x64", True)
-
 
 @jax.jit
 def interpolate_timeseries_2d(phase, wave, phase_grid, wave_grid, flux_grid,

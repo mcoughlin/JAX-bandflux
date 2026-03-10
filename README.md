@@ -51,6 +51,7 @@ uv pip install -e ".[dev,nested,docs]"
 > **Notes:**
 > - Python >= 3.10. Core deps include JAX >= 0.4.20, NumPy >= 1.24.0, Astropy, and SNCosmo; SALT3/SALT3-NIR model files are bundled with the package.
 > - See the [JAX installation guide](https://jax.readthedocs.io/en/latest/installation.html) for other CUDA versions.
+> - If you need the tightest agreement with SNCosmo or want to satisfy the strictest validation tolerances, enable x64 before importing `jax_supernovae`, for example: `import jax; jax.config.update("jax_enable_x64", True)`.
 
 ## Quickstart
 

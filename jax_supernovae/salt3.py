@@ -13,9 +13,6 @@ import importlib.resources
 from jax_supernovae import dust
 from jax_supernovae.utils import bandflux_integration, apply_zeropoint
 
-# Enable float64 precision
-jax.config.update("jax_enable_x64", True)
-
 # Constants
 H_ERG_S = 6.62607015e-27  # Planck constant in erg*s
 

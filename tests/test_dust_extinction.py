@@ -22,9 +22,6 @@ from jax_supernovae import dust
 from jax_supernovae.bandpasses import Bandpass
 from jax_supernovae.salt3 import optimized_salt3_bandflux, precompute_bandflux_bridge
 
-# Enable float64 precision
-jax.config.update("jax_enable_x64", True)
-
 
 def test_dust_extinction_laws():
     """Test that JAX dust extinction laws match sncosmo's implementation."""

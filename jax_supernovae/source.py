@@ -482,10 +482,10 @@ class TimeSeriesSource:
         self._zero_before = zero_before
         self._time_degree = time_spline_degree
 
-        # Convert to JAX arrays (float64 for precision)
-        self._phase = jnp.array(phase, dtype=jnp.float64)
-        self._wave = jnp.array(wave, dtype=jnp.float64)
-        self._flux = jnp.array(flux, dtype=jnp.float64)
+        # Convert to JAX arrays
+        self._phase = jnp.asarray(phase)
+        self._wave = jnp.asarray(wave)
+        self._flux = jnp.asarray(flux)
 
         # Cache bounds for quick access
         self._minphase = float(phase[0])
